@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="?attr/materialCardViewElevatedStyle"
+    app:cardCornerRadius="30dp"
+    app:cardElevation="10dp"
+    android:focusable="true"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginHorizontal="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardview_book"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/libro_1" />
+
+        <TextView
+            android:id="@+id/textview_name_book"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Titulo"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="49dp" />
+
+        <TextView
+            android:id="@+id/textview_name_autor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="ByAutor"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/textview_name_book" />
+
+        <TextView
+            android:id="@+id/textview_name_categoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categoria"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/textview_name_autor" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button"
+            app:srcCompat="@drawable/ic_heart"
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/button"
+            app:srcCompat="@drawable/ic_share_alt" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:text="add"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="62dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
