@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">bookodemia</string>
+    <string name="tv_regresar">Regresar</string>
+    <string name="tv_experiencia">Estas a unas cuantos pasos de vivir la mejor \n experiencia</string>
+    <string name="tv_registra_tu_informacion">Registra tu informacion</string>
+    <string name="tiet_usuario">usuario</string>
+    <string name="tiet_correo">correo</string>
+    <string name="tiet_contrasena">password</string>
+    <string name="tiet_password">confirmar password</string>
+    <string name="btn_crear_cuenta">CREAR CUENTA</string>
 </resources>
