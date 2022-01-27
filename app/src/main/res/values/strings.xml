@@ -1,4 +1,10 @@
 <resources>
+
+
+    <!--Metodo API-->
+    <string name="api_login">login</string>
+
+
     <string name="app_name">bookodemia</string>
     <string name="tv_regresar">Regresar</string>
     <string name="tv_experiencia">Estas a unas cuantos pasos de vivir la mejor \n experiencia</string>
