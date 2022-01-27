@@ -1,8 +1,12 @@
 <resources>
+    <!--ShardePreferences-->
+    <string name="name_file_preferences">mx.kodemia.bookdemia.sharedpreferences</string>
 
 
     <!--Metodo API-->
     <string name="api_login">login</string>
+    <string name="api_register">register</string>
+    <string name="key_token">plain-text-token</string>
 
 
     <string name="app_name">bookodemia</string>

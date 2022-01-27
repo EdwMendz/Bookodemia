@@ -10,6 +10,8 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_login.*
+import mx.kodemia.bookodemia.extra.inisiarSesion
+import mx.kodemia.bookodemia.extra.validarSesion
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
@@ -28,14 +30,20 @@ class MainActivity : AppCompatActivity() {
                 //Hacemos la peticion
                 val cola = Volley.newRequestQueue(applicationContext)
                 val json = JSONObject()
-                json.put("email", tiet_email.text)
+                json.put("email", tiet_email_login.text)
                 json.put("password", tiet_password.text)
                 json.put("device_name", "User's phone")
                 val peticion = JsonObjectRequest(
                     Request.Method.POST,getString(R.string.url_servidor)+getString(R.string.api_login),
                     json,
                     { response ->
-                        Log.d(TAG,response.toString())
+                        //todo esta bien en el logcast -> Log.d(TAG,response.toString())
+                        val jsonObject = JSONObject(response.toString())
+                        inisiarSesion(applicationContext,jsonObject)
+                        if (validarSesion(applicationContext)){
+                            val intent = Intent(this,MainScreen::class.java)
+                            startActivity(intent)
+                        }
                     },
                     { error ->
                         Log.e(TAG,error.toString())
@@ -45,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
 
         //validacion del email
-        tiet_email.addTextChangedListener(object : TextWatcher {
+        tiet_email_login.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
