@@ -18,4 +18,9 @@
     <string name="tiet_contrasena">password</string>
     <string name="tiet_password">confirmar password</string>
     <string name="btn_crear_cuenta">CREAR CUENTA</string>
+    <string name="cerrar_sesion">Cerrar Sesion</string>
+    <string name="api_logout">logout</string>
+    <string name="error_internet">"Ups no estas conectado a internet "</string>
+    <string name="campo_vacio">campo vacio</string>
+    <string name="error_correo">correo no valido</string>
 </resources>
