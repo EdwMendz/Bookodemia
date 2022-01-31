@@ -36,4 +36,11 @@ fun validarSesion(context: Context):Boolean{
     val token = sharedPreferences.getString("token","")
     return !token.isNullOrEmpty()
 }
+fun eliminarSesion(context: Context){
+    val sharedPreferences = obtenerPreferencias(context)
+    with(sharedPreferences.edit()){
+        clear()
+        apply()
+    }
+}
 

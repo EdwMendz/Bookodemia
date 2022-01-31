@@ -21,35 +21,40 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if(validarSesion(applicationContext)){
+            lanzarActivity()
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        init()
+    }
+
+    fun init(){
+        btn_inisiar_sesion.setOnClickListener {
+            //Hacemos la peticion
+            val cola = Volley.newRequestQueue(applicationContext)
+            val json = JSONObject()
+            json.put("email", tiet_email_login.text)
+            json.put("password", tiet_password.text)
+            json.put("device_name", "User's phone")
+            val peticion = JsonObjectRequest(
+                Request.Method.POST,getString(R.string.url_servidor)+getString(R.string.api_login),
+                json,
+                { response ->
+                    //todo esta bien en el logcast -> Log.d(TAG,response.toString())
+                    val jsonObject = JSONObject(response.toString())
+                    inisiarSesion(applicationContext,jsonObject)
+                    if (validarSesion(applicationContext)){
+                        lanzarActivity()
+                    }
+                },
+                { error ->
+                    Log.e(TAG,error.toString())
+                })
+            cola.add(peticion)
+        }
 
 
-
-            btn_inisiar_sesion.setOnClickListener {
-                //Hacemos la peticion
-                val cola = Volley.newRequestQueue(applicationContext)
-                val json = JSONObject()
-                json.put("email", tiet_email_login.text)
-                json.put("password", tiet_password.text)
-                json.put("device_name", "User's phone")
-                val peticion = JsonObjectRequest(
-                    Request.Method.POST,getString(R.string.url_servidor)+getString(R.string.api_login),
-                    json,
-                    { response ->
-                        //todo esta bien en el logcast -> Log.d(TAG,response.toString())
-                        val jsonObject = JSONObject(response.toString())
-                        inisiarSesion(applicationContext,jsonObject)
-                        if (validarSesion(applicationContext)){
-                            val intent = Intent(this,MainScreen::class.java)
-                            startActivity(intent)
-                        }
-                    },
-                    { error ->
-                        Log.e(TAG,error.toString())
-                    })
-                cola.add(peticion)
-            }
 
 
         //validacion del email
@@ -66,6 +71,7 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     til_email.setErrorEnabled(false)
                     til_email.setError("")
+
                 }
             }
 
@@ -80,5 +86,11 @@ class MainActivity : AppCompatActivity() {
         registrate.setOnClickListener {
             startActivity(Intent(this, Registro::class.java))
         }
+    }
+    fun lanzarActivity(){
+        val intent = Intent(this, MainScreen::class.java)
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+        finish()
     }
 }
