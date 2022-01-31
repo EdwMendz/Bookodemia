@@ -7,9 +7,13 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import com.android.volley.Request
+import com.android.volley.VolleyLog
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import mx.kodemia.bookodemia.dataclass.Errors
 import mx.kodemia.bookodemia.extra.*
 import org.json.JSONObject
 
@@ -32,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     fun init() {
         btn_inisiar_sesion.setOnClickListener {
             //Hacemos la peticion
-            if(validarContrasenia() && validarCorreo()){
+            if (validarContrasenia() && validarCorreo()) {
                 realizarPeticion()
             }
         }
@@ -55,7 +59,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-        //validacion del correo
+        //validacion del passworrd
         tiet_password.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
@@ -75,8 +79,6 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-
-
         //Uso el botton para ir a la pagina principal
 
 //        button_login.setOnClickListener {
@@ -88,28 +90,42 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun realizarPeticion(){
-        val cola = Volley.newRequestQueue(applicationContext)
-        val json = JSONObject()
-        json.put("email", tiet_email_login.text)
-        json.put("password", tiet_password.text)
-        json.put("device_name", "User's phone")
-        val peticion = JsonObjectRequest(
-            Request.Method.POST,
-            getString(R.string.url_servidor) + getString(R.string.api_login),
-            json,
-            { response ->
-                //todo esta bien en el logcast -> Log.d(TAG,response.toString())
-                val jsonObject = JSONObject(response.toString())
-                inisiarSesion(applicationContext, jsonObject)
-                if (validarSesion(applicationContext)) {
-                    lanzarActivity()
-                }
-            },
-            { error ->
-                Log.e(TAG, error.toString())
-            })
+    fun realizarPeticion() {
+        VolleyLog.DEBUG = true
         if (estaEnLinea(applicationContext)) {
+            val cola = Volley.newRequestQueue(applicationContext)
+            val json = JSONObject()
+            json.put("email", tiet_email_login.text.toString())
+            json.put("password", tiet_password.text.toString())
+            json.put("device_name", "User's phone")
+            val peticion = object : JsonObjectRequest(Request.Method.POST,
+                getString(R.string.url_servidor) + getString(R.string.api_login),
+                json,
+                { response ->
+                    val jsonObject = JSONObject(response.toString())
+                    inisiarSesion(applicationContext, jsonObject)
+                    if (validarSesion(applicationContext)) {
+                        lanzarActivity()
+                    }
+                },
+                { error ->
+
+                    val json = JSONObject(String(error.networkResponse.data, Charsets.UTF_8))
+                    val errors = Json.decodeFromString<Errors>(json.toString())
+                    for (error in errors.errors) {
+                        mensajeEmergente(this, error.detail)
+                    }
+                    Log.e(TAG, error.networkResponse.toString())
+                    Log.e(TAG, error.toString())
+                }
+            ) {
+                override fun getHeaders(): MutableMap<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Accept"] = "application/json"
+                    headers["Content-type"] = "application/json"
+                    return headers
+                }
+            }
             cola.add(peticion)
         } else {
             mensajeEmergente(this, getString(R.string.error_internet))
@@ -141,11 +157,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun validarContrasenia() :Boolean{
-        return if (tiet_email_login.text.toString().isEmpty()){
+    private fun validarContrasenia(): Boolean {
+        return if (tiet_email_login.text.toString().isEmpty()) {
             til_email.error = getString(R.string.campo_vacio)
             false
-        }else{
+        } else {
+            til_password.isErrorEnabled = false
             true
         }
     }
