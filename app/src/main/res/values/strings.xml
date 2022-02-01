@@ -28,6 +28,7 @@
     <string name="campo_vacio">campo vacio</string>
     <string name="error_correo">correo no valido</string>
     <string name="error_usuario">usuario no valido</string>
-    //<string name="tv_titulo">Titulo: %s</string>
+    <string name="tv_titulo">Titulo: %s</string>
     <string name="tv_byautor">Autor: %s</string>
+    <string name="api_libros">books</string>
 </resources>

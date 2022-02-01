@@ -1,7 +1,9 @@
 package mx.kodemia.bookodemia.dataclasslibro
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Attributes(
     val title: String,
     val slug: String,
