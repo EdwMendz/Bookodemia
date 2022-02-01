@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import com.android.volley.Request
 import com.android.volley.VolleyLog
 import com.android.volley.toolbox.JsonObjectRequest
@@ -24,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        eliminarSesion(applicationContext)
         if (validarSesion(applicationContext)) {
             lanzarActivity()
         }
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
 //            startActivity(Intent(this, MainScreen::class.java))
 //        }
 
-        registrate.setOnClickListener {
+        registrate_login.setOnClickListener {
             startActivity(Intent(this, Registro::class.java))
         }
     }
@@ -93,6 +93,12 @@ class MainActivity : AppCompatActivity() {
     fun realizarPeticion() {
         VolleyLog.DEBUG = true
         if (estaEnLinea(applicationContext)) {
+            pb_login.visibility = View.VISIBLE
+            registrate_login.visibility = View.GONE
+            btn_inisiar_sesion.visibility = View.GONE
+
+
+
             val cola = Volley.newRequestQueue(applicationContext)
             val json = JSONObject()
             json.put("email", tiet_email_login.text.toString())
@@ -109,6 +115,9 @@ class MainActivity : AppCompatActivity() {
                     }
                 },
                 { error ->
+                    pb_login.visibility = View.GONE
+                    registrate_login.visibility = View.VISIBLE
+                    btn_inisiar_sesion.visibility = View.VISIBLE
 
                     val json = JSONObject(String(error.networkResponse.data, Charsets.UTF_8))
                     val errors = Json.decodeFromString<Errors>(json.toString())

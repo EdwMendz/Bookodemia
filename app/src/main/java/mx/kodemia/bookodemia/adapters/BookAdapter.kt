@@ -5,10 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.card.MaterialCardView
-import com.google.android.material.snackbar.Snackbar
 import mx.kodemia.bookodemia.R
-import mx.kodemia.bookodemia.models.DatosBooks
 
 class BookAdapter:RecyclerView.Adapter<BookAdapter.BookHolder>(){
 
@@ -20,9 +17,9 @@ class BookAdapter:RecyclerView.Adapter<BookAdapter.BookHolder>(){
         var itemCategoria: TextView
 
         init {
-            itemTitulo = itemView.findViewById(R.id.textview_name_book)
-            itemAutor = itemView.findViewById(R.id.textview_name_autor)
-            itemCategoria = itemView.findViewById(R.id.textview_name_categoria)
+            itemTitulo = itemView.findViewById(R.id.tv_titulo_book)
+            itemAutor = itemView.findViewById(R.id.tv_autor_book)
+            itemCategoria = itemView.findViewById(R.id.tv_categoria_book)
         }
     }
 

@@ -38,9 +38,9 @@ class MainScreen : AppCompatActivity() {
 
     fun init() {
         btn_cerrar_sesion.setOnClickListener {
-            eliminarSesion(applicationContext)
-            //startActivity(Intent(this,MainActivity::class.java))
-            //finish()
+            //eliminarSesion(applicationContext)
+            startActivity(Intent(this,MainActivity::class.java))
+            finish()
             val cola = Volley.newRequestQueue(applicationContext)
             val peticion = object : StringRequest(
                 Request.Method.POST,

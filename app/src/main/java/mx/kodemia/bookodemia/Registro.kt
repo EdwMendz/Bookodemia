@@ -9,6 +9,9 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_registro.*
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import mx.kodemia.bookodemia.dataclass.Errors
 import mx.kodemia.bookodemia.extra.estaEnLinea
 import mx.kodemia.bookodemia.extra.inisiarSesion
 import mx.kodemia.bookodemia.extra.mensajeEmergente
@@ -28,7 +31,7 @@ class Registro : AppCompatActivity() {
 
     fun init() {
         btn_registrar.setOnClickListener {
-            if (validarCorreo() && validarContrasenia() && validarUsuario()) {
+            if (validarCorreo() && validarContrasenia()) {
                 realizarPeticion()
             }
         }
@@ -45,7 +48,7 @@ class Registro : AppCompatActivity() {
             json.put("device_name", "User's phone")
 
             val cola = Volley.newRequestQueue(applicationContext)
-            val peticion = JsonObjectRequest(
+            val peticion = object: JsonObjectRequest(
                 Request.Method.POST,
                 getString(R.string.url_servidor) + getString(R.string.api_register),
                 json,
@@ -54,15 +57,25 @@ class Registro : AppCompatActivity() {
                     val jsonObject = JSONObject(response.toString())
                     inisiarSesion(applicationContext, jsonObject)
                     val intent = Intent(this, MainScreen::class.java)
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                     finish()
                 }, { error ->
-                    Log.e(TAG, error.toString())
-                })
+                    val json = JSONObject(String(error.networkResponse.data, Charsets.UTF_8))
+                    val errors = Json.decodeFromString<Errors>(json.toString())
+                    for (error in errors.errors){
+                        mensajeEmergente(this,error.detail)
+                    }
+                    Log.e(TAG,error.toString())
+                }){
+                override fun getHeaders(): MutableMap<String, String> {
+                    val headers = HashMap<String,String>()
+                    headers["Accept"] = "application/json"
+                    headers["Content-type"] = "application/json"
+                    return headers
+                }
+            }
             cola.add(peticion)
-
         } else {
             mensajeEmergente(this, getString(R.string.error_internet))
         }
@@ -98,7 +111,7 @@ class Registro : AppCompatActivity() {
                 til_usuario_registro.isErrorEnabled = false
                 true
             } else {
-                til_usuario_registro.error = getString(R.string.error_correo)
+                til_usuario_registro.error = getString(R.string.error_usuario)
                 false
             }
         }
