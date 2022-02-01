@@ -9,8 +9,8 @@
     <string name="key_token">plain-text-token</string>
 
     <!--String para item de book -->
-    <string name="tv_titulo">Titulo: %s</string>
-    <string name="tv_content"
+
+
 
 
     <string name="app_name">bookodemia</string>
@@ -28,6 +28,6 @@
     <string name="campo_vacio">campo vacio</string>
     <string name="error_correo">correo no valido</string>
     <string name="error_usuario">usuario no valido</string>
-    <string name="tv_titulo">Titulo: %s</string>
+    //<string name="tv_titulo">Titulo: %s</string>
     <string name="tv_byautor">Autor: %s</string>
 </resources>
