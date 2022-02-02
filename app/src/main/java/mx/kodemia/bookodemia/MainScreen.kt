@@ -67,7 +67,7 @@ class MainScreen : AppCompatActivity() {
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 }, { error ->
-
+                    Log.e(TAG,error.toString())
                 }) {
                 override fun getHeaders(): MutableMap<String, String> {
                     val headers = HashMap<String, String>()

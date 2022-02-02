@@ -36,9 +36,9 @@ class MainActivity : AppCompatActivity() {
     fun init() {
         btn_inisiar_sesion.setOnClickListener {
             //Hacemos la peticion
-            if (validarContrasenia() && validarCorreo()) {
+                validate()
                 realizarPeticion()
-            }
+
         }
         //validacion del email
         tiet_email_login.addTextChangedListener(object : TextWatcher {
@@ -149,6 +149,10 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
+
+
+
+
     private fun validarCorreo(): Boolean {
         return if (tiet_email_login.text.toString().isEmpty()) {
             til_email.error = getString(R.string.campo_vacio)
@@ -174,6 +178,12 @@ class MainActivity : AppCompatActivity() {
             til_password.isErrorEnabled = false
             true
         }
+    }
+
+    private fun validate(){
+        val result = arrayOf(validarCorreo(),validarContrasenia())
+        if (false in result)
+            return
     }
 }
 

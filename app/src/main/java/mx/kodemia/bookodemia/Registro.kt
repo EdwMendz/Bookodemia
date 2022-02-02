@@ -3,6 +3,8 @@ package mx.kodemia.bookodemia
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
@@ -31,9 +33,9 @@ class Registro : AppCompatActivity() {
 
     fun init() {
         btn_registrar.setOnClickListener {
-            if (validarCorreo() && validarContrasenia()) {
-                realizarPeticion()
-            }
+            validate()
+            realizarPeticion()
+
         }
 
     }
@@ -127,5 +129,21 @@ class Registro : AppCompatActivity() {
             true
         }
     }
+    private fun contraseniasIguales() : Boolean {
+        return if (tiet_contrasenia_registro.text.toString() != tiet_contrasenia2_registro.text.toString()){
+            til_contrasenia_registro.error = "contrasenia distinta"
+            til_contrasenia2_registro.error = "contrasenia distinta"
+            false
+        }else{
+            true
+        }
+    }
+
+    private fun validate(){
+        val result = arrayOf(validarCorreo(),validarUsuario(),validarContrasenia(),contraseniasIguales())
+        if (false in result)
+            return
+    }
+
 
 }
