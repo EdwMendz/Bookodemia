@@ -29,4 +29,9 @@
     <string name="tv_titulo">Titulo: %s</string>
     <string name="tv_byautor">Autor: %s</string>
     <string name="api_libros">books</string>
+    <string name="regresar">Regresar</string>
+    <string name="textview">Book Mockup</string>
+    <string name="Autor">By Autor</string>
+    <string name="tv_categoria_descripcion">Categoría</string>
+    <string name="tv_Descripción_descripcion">Descripción</string>
 </resources>

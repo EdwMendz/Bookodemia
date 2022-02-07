@@ -17,9 +17,9 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import mx.kodemia.bookodemia.adapters.AdaptadorBooks
 import mx.kodemia.bookodemia.dataclass.Errors
-import mx.kodemia.bookodemia.dataclasslibro.Book
+
 import mx.kodemia.bookodemia.dataclasslibro.Books
-//import mx.kodemia.bookodemia.adapters.BookAdapter
+
 import mx.kodemia.bookodemia.extra.eliminarSesion
 import mx.kodemia.bookodemia.extra.estaEnLinea
 import mx.kodemia.bookodemia.extra.mensajeEmergente
