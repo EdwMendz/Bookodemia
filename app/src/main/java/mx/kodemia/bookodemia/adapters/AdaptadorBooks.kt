@@ -26,11 +26,12 @@ class AdaptadorBooks(val activity: Activity, val books: MutableList<Book>): Recy
         val book = books.get(position)
         with(holder){
             btn_book_see.setOnClickListener {
-                val bundle = Bundle()
-                bundle.putSerializable("book",book)
+//                val bundle = Bundle()
+//                bundle.putSerializable("book",book)
                 val intent = Intent(activity,Descripcion::class.java)
-                intent.putExtras(bundle)
+//                intent.putExtras(bundle)
                 activity.startActivity(intent)
+                //startActivity(intent)
             }
             tv_titulo_book.text = book.attributes.title
             tv_autor_book.text = book.attributes.content
