@@ -34,4 +34,8 @@
     <string name="Autor">By Autor</string>
     <string name="tv_categoria_descripcion">Categoría</string>
     <string name="tv_Descripción_descripcion">Descripción</string>
+    <string name="tv_detalles_descripcion">Detalles</string>
+    <string name="tv_lorem_descripcion">Lorem ipsum es un texto de marcado de posicion \n comunmente utilizado en las industrias graficas, \n graficas y editoriales para previsualizar diseños y  \n maquetas visuales</string>
+    <string name="tv_sobre_autor">Sobre el Autor</string>
+    <string name="tv_nombreAutor_descripcion">TextView</string>
 </resources>
